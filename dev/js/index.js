@@ -85,7 +85,7 @@ let info = () => html`
       This website makes it easy to replace all letters that are availibe as emojis to those emojis, 
       made by <a href='https://github.com/mjarkk'>mjarkk</a>.
     </p>
-    <p class='headP'>If fi nd a 🐛 you can make an <a href='https://github.com/mjarkk/replace-letters-with-emojis/issues/new'>issue</a></p>
+    <p class='headP'>If you find a 🐛 you can make an <a href='https://github.com/mjarkk/replace-letters-with-emojis/issues/new'>issue</a></p>
   </div>
 `
 
