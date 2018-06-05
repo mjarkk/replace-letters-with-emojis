@@ -1,2 +1,2 @@
-# replace-letters-with-emoji-letters
-This webapp will replace all letters with emoji letters like the letter B to 🅱
+# replace letters with emojis
+This webapp will replace all letters with emojis like the letter B to 🅱
