@@ -9,6 +9,39 @@ log('The full source code in on github: https://github.com/mjarkk/replace-letter
 
 let textInput = ''
 
+const copyToClipboard = str => {
+  const el = document.createElement('textarea')
+  el.value = str
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+  showPopup('Copied text!')
+}
+
+let popup = {
+  text: '',
+  html: () => html`
+    <div class='popupHolder'>
+      <div class$='${popup.open ? 'popup open' : 'popup'}'>
+        <p>${popup.text}</p>
+        <button
+          on-click=${() => {
+            popup.open = false
+            r()
+          }}
+        >Close</button>
+      </div>
+    </div>
+  `,
+  open: false
+}
+const showPopup = text => {
+  popup.text = text
+  popup.open = true
+  r()
+} 
+
 let replaceLetters = input => {
   let blue = 'blue'
   let red = 'red'
@@ -16,6 +49,7 @@ let replaceLetters = input => {
   let toReplace = [
     ['b','\uD83C\uDD71',red],
     ['a','\uD83C\uDD70',red],
+    ['up!','\uD83C\uDD99',blue],
     ['abc','\uD83D\uDD24',blue],
     ['1234','\uD83D\uDD22',blue],
     ['100','\uD83D\uDCAF',normal],
@@ -29,7 +63,6 @@ let replaceLetters = input => {
     ['ok','\uD83C\uDD97',blue],
     ['p','\uD83C\uDD7F',blue],
     ['sos','\uD83C\uDD98',red],
-    ['up!','\uD83C\uDD99',blue],
     ['vs','\uD83C\uDD9A',red],
     ['10','\uD83D\uDD1F',blue],
     ['9','9\uFE0F\u20E3',blue],
@@ -57,7 +90,7 @@ let replaceLetters = input => {
   ,input)
 }
 
-let input = () => html`
+let input = html`
   <div class='input box'>
     <h2>Input:</h2>
     <div class='holder'>
@@ -73,12 +106,20 @@ let output = () =>  html`
   <div class='output box'>
     <h2>Output:</h2>
     <div class='holder extraPadd'>
-      <p class='outputText'>${textInput ? replaceLetters(textInput) : 'Start typing to see result'}</p>
+      <div 
+        on-click=${ () => copyToClipboard(replaceLetters(textInput)) }
+        class='outputText'
+      >
+        ${textInput ? replaceLetters(textInput) : 'Start typing to see result'}
+      </div>
     </div>
+    <p class='headP hint'>
+      <b>Hint: </b> Click on the text to copy it.
+    </p>
   </div>
 `
 
-let info = () => html`
+let info = html`
   <div class='info box'>
     <h2>Info:</h2>
     <p class='headP'>
@@ -92,9 +133,10 @@ let info = () => html`
 let toRender = () => html`
   <h1 class='header'>Letters ➡️ emojis</h1>
   <div class='wrapper'>
-    ${input()}
+    ${input}
     ${output()}
-    ${info()}
+    ${info}
+    ${popup.html()}
   </div>
 `
 
