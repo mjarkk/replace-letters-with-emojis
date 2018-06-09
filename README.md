@@ -13,4 +13,4 @@ This webapp will replace all letters with emojis like the letter B to :b:
 - Instead of `yarn build` :arrow_right: `yarn dev`
 
 ## Testing
-- `yarn test`
+- `yarn test` (You might need to install chrome to run the tests)
